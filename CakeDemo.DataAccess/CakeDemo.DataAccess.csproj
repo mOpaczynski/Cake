@@ -33,7 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,8 +50,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CakeDemoContext.cs" />
+    <Compile Include="Migrations\201806261306057_AddVanilla.cs" />
+    <Compile Include="Migrations\201806261306057_AddVanilla.Designer.cs">
+      <DependentUpon>201806261306057_AddVanilla.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806261310301_AddChocolate.cs" />
+    <Compile Include="Migrations\201806261310301_AddChocolate.Designer.cs">
+      <DependentUpon>201806261310301_AddChocolate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806261312385_AddCherries.cs" />
+    <Compile Include="Migrations\201806261312385_AddCherries.Designer.cs">
+      <DependentUpon>201806261312385_AddCherries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806261306057_AddVanilla.resx">
+      <DependentUpon>201806261306057_AddVanilla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806261310301_AddChocolate.resx">
+      <DependentUpon>201806261310301_AddChocolate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806261312385_AddCherries.resx">
+      <DependentUpon>201806261312385_AddCherries.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
