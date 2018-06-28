@@ -1,5 +1,9 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'jenkins-master'
+      customWorkspace '.\\workspace\\master'
+    }
   }
   environment {
     CAKE_EXE = ".\\tools\\Cake.0.27.1\\cake.exe"
