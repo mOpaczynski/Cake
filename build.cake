@@ -1,6 +1,4 @@
 #tool "nuget:?package=NUnit.ConsoleRunner"
-#tool "nuget:?package=OpenCover"
-#tool "nuget:?package=ReportGenerator"
 #tool "nuget:?package=OctopusTools"
 
 #r "tools/MyCustomExtensions/CakeDemo.MyCustomExtensions.dll"
