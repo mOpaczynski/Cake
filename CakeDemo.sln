@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{525C7A6B-86A1-
 	ProjectSection(SolutionItems) = preProject
 		build.cake = build.cake
 		build.ps1 = build.ps1
+		pipeline.jenkinsfile = pipeline.jenkinsfile
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeDemo.UnitTests", "CakeDemo.UnitTests\CakeDemo.UnitTests.csproj", "{C70743A3-C1B1-4532-94A1-E7FDC5D1C2C9}"
