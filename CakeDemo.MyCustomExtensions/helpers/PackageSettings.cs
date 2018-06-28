@@ -1,0 +1,28 @@
+﻿using System;
+using Cake.Core.IO;
+
+namespace CakeDemo.MyCustomExtensions.Helpers
+{
+    public class PackageSettings
+    {
+        public string Id { get; set; }
+
+        public string Version { get; set; }
+
+        public string Title { get; set; }
+
+        public string Author { get; set; }
+
+        public string Description { get; set; }
+
+        public string Summary { get; set; }
+
+        public Uri ProjectUrl { get; set; }
+
+        public DirectoryPath FilesSource { get; set; }
+
+        public DirectoryPath OutputDirectory { get; set; }
+
+        public bool Overwrite { get; set; }
+    }
+}

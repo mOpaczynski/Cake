@@ -1,23 +1,26 @@
 #tool "nuget:?package=NUnit.ConsoleRunner"
 #tool "nuget:?package=OpenCover"
 #tool "nuget:?package=ReportGenerator"
+#tool "nuget:?package=OctopusTools"
+
+#r "tools/MyCustomExtensions/CakeDemo.MyCustomExtensions.dll"
 
 var target = Argument("target", "Default");
 
-Task("Restore-Nuget-Packages")
+Task("Restore")
     .Does(() => {
         var solutionFilePath = "./CakeDemo.sln";
 
         NuGetRestore(solutionFilePath);
     });
 
-Task("Build-Net-Projects")
-    .IsDependentOn("Restore-Nuget-Packages")
+Task("Build")
+    .IsDependentOn("Restore")
     .Does(() => {
-        var solutionFilePath = GetFiles("./**/Sticker.sln").First();
+        var solutionFilePath = "./CakeDemo.sln";
 
         MSBuild(solutionFilePath, new MSBuildSettings { ArgumentCustomization = args => args.Append("/consoleloggerparameters:ForceConsoleColor") }
-            .SetConfiguration(projectConfiguration)
+            .SetConfiguration("Release")
             .WithTarget("Rebuild"));
     });
 
@@ -35,14 +38,74 @@ Task("Unit-Tests")
     });
 
 
-Task("Test-Migrations-And-Seed")
+Task("Migrate-Database")
     .Does(() => {
+        MigrateDatabases();
+    });
 
+Task("Octopus-Package")
+    .Does(() => {
+        var projects = GetProjectsToPack();
+
+        foreach (var project in projects) {
+            var packageSettings = new OctopusPackSettings {
+                Version = project.Version,
+                Description = project.Description,
+                BasePath = project.FilesSource,
+                Author = project.Author,
+                OutFolder = project.OutputDirectory,
+                Overwrite = project.Overwrite
+            };
+
+            OctoPack(project.Id, packageSettings);
+        }
+    });
+
+Task("Deploy")
+    .Does(() => {
+        Information("Deploying first application...");
+        Information("Deploying second application...");
+        Information("Deploying third application...");
+        Information("Deploying fourth application...");
+        Information("Deploying fifth application...");
+        Information("...")
+        Information("Success!!!")
+    });
+
+Task("Demo-Pipeline")
+    .IsDependentOn("Build")
+    .IsDependentOn("Unit-Tests")
+    .IsDependentOn("Octopus-Package")
+    .IsDependentOn("Migrate-Database")
+    .IsDependentOn("Deploy")
+    .Does(() => {
+        Information("Success! All tasks were executed without any problems.");
+    });
+
+Task("Custom-Methods")
+    .Does(() => {
+        var x = 4;
+
+        Information("Input number is: " + x);
+        Information("Using MultipluByFour method gives: " + MultiplyByFour(x));
+    });
+
+Task("Custom-Properties")
+    .Does(() => {
+        Information("Fourty six property: " + FourtySix);
+        Information("Version property: " + Version);
+    });
+
+Task(Custom-Extensions-Demo)
+    .IsDependentOn("Custom-Methods")
+    .IsDependentOn("Custom-Properties")
+    .Does(() => {
+        Information("Custom extensions were executed.");
     });
 
 Task("Default")
     .Does(() => {
-        Information("Cake was build and installed successfully.");
+        Information("This task will run if target is not set.");
     });
 
 RunTarget(target);
