@@ -26,15 +26,10 @@ Task("Build")
 
 Task("Unit-Tests")
     .Does(() => {
-        var testAssemblies = GetFiles($"./*UnitTests/bin/{projectConfiguration}/*UnitTests.dll");
+        var testAssemblies = GetFiles($"./*UnitTests/bin/Release/*UnitTests.dll");
         var settings = new NUnit3Settings { Results = new[] { new NUnit3Result { FileName = "UnitTestsResult.xml" } }, Labels = NUnit3Labels.Off };
 
-        OpenCover(tool => 
-            { tool.NUnit3(testAssemblies, settings); },
-            new FilePath("./OpenCoverResult.xml"),
-            new OpenCoverSettings { ReturnTargetCodeOffset = 0 });
-
-        ReportGenerator(new FilePath("./OpenCoverResult.xml"), new DirectoryPath("./coverage/"));
+        NUnit3(testAssemblies, settings);
     });
 
 
@@ -68,8 +63,8 @@ Task("Deploy")
         Information("Deploying third application...");
         Information("Deploying fourth application...");
         Information("Deploying fifth application...");
-        Information("...")
-        Information("Success!!!")
+        Information("...");
+        Information("Success!!!");
     });
 
 Task("Demo-Pipeline")
@@ -93,10 +88,10 @@ Task("Custom-Methods")
 Task("Custom-Properties")
     .Does(() => {
         Information("Fourty six property: " + FourtySix);
-        Information("Version property: " + Version);
+        Information("Version property: " + CurrentVersion);
     });
 
-Task(Custom-Extensions-Demo)
+Task("Custom-Extensions-Demo")
     .IsDependentOn("Custom-Methods")
     .IsDependentOn("Custom-Properties")
     .Does(() => {

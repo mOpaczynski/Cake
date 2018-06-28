@@ -14,7 +14,7 @@ namespace CakeDemo.MyCustomExtensions
     public static class CustomMethods
     {
         [CakeMethodAlias]
-        public static int MultiplyByFour(int x)
+        public static int MultiplyByFour(this ICakeContext context, int x)
         {
             return x * 4;
         }
@@ -77,6 +77,11 @@ namespace CakeDemo.MyCustomExtensions
 
             foreach (var project in projectsToPack)
             {
+                if (project.Contains("MyCustomExtensions") || project.Contains("Tests"))
+                {
+                    continue;
+                }
+
                 var projectSettings = new PackageSettings
                 {
                     Id = GetLastSegment(project),
